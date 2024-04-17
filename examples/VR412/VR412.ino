@@ -1,9 +1,4 @@
 /*VR412
- * Copyright (C) 2014 Velleman nv
- *
- * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
- *
  */
  
 #include <Servo.h>                        // The ALLBOT library needs the servo.h library
@@ -35,27 +30,76 @@ String command;                           // Global variable that stores part of
 int times;                                // Global variable that stores part the received IR command
 int speedms;                              // Global variable that stores part the received IR command
 
-boolean IRreceive = false;                 // Set this to true if you want to use the IR remote
+//boolean IRreceive = false;                 // Set this to true if you want to use the IR remote
+
+boolean IRreceive = false;  
 boolean receivelog = false;               // Set this to true if you want to see the serial messages for debugging the IR commands
 
 void setup() 
 { 
   // NAME.attach(motorname, pin, init-angle, flipped, offset-angle);
-  BOT.attach(hipFrontLeft,   A5,  45, 0,  0);
-  BOT.attach(hipFrontRight,  A2,  45, 1,  0);
-  BOT.attach(hipRearLeft,    10,  45, 1,  0);
-  BOT.attach(hipRearRight,   3,   45, 0,  0);
+ // original conf
+ // BOT.attach(hipFrontLeft,   A5,  45, 0,  0);
+ // BOT.attach(hipFrontRight,  A2,  45, 1,  0);
+ // BOT.attach(hipRearLeft,    10,  45, 1,  0);
+ // BOT.attach(hipRearRight,   3,   45, 0,  0);
  
-  BOT.attach(kneeFrontLeft,  A4,  10, 0,  0);
-  BOT.attach(kneeFrontRight, A1,  10, 1,  0);
-  BOT.attach(kneeRearLeft,   9,   10, 0,  0);
-  BOT.attach(kneeRearRight,  4,   10, 1,  0);
+ // BOT.attach(kneeFrontLeft,  A4,  10, 0,  0);
+ // BOT.attach(kneeFrontRight, A1,  10, 1,  0);
+ // BOT.attach(kneeRearLeft,   9,   10, 0,  0);
+ // BOT.attach(kneeRearRight,  4,   10, 1,  0);
 
-  BOT.attach(ankleFrontLeft,  A0,  0, 0,  0);
-  BOT.attach(ankleFrontRight, A3,  0, 1,  0);
-  BOT.attach(ankleRearLeft,   11,  0, 0,  0);
-  BOT.attach(ankleRearRight,  2,   0, 1,  0);
+ // BOT.attach(ankleFrontLeft,  A0,  0, 0,  0);
+ // BOT.attach(ankleFrontRight, A3,  0, 1,  0);
+ // BOT.attach(ankleRearLeft,   11,  0, 0,  0);
+ // BOT.attach(ankleRearRight,  2,   0, 1,  0);
 
+ //  new config
+ 
+ // BOT.attach(hipFrontLeft,   A5,  45, 0,  0);
+ // BOT.attach(kneeFrontLeft,  A4,  10, 0,  0);
+ // BOT.attach(ankleFrontLeft,  A0,  0, 0,  0);
+
+ // BOT.attach(hipRearLeft,    10,  45, 1,  0);
+ // BOT.attach(kneeRearLeft,   9,   10, 0,  0);
+ // BOT.attach(ankleRearLeft,   11,  0, 0,  0);
+
+ // BOT.attach(hipFrontRight,  A2,  45, 1,  0);
+ // BOT.attach(kneeFrontRight, A1,  10, 0,  0);
+ // BOT.attach(ankleFrontRight, A3,  0, 1,  0); 
+
+ // BOT.attach(hipRearRight,   3,   45, 0,  0);
+ // BOT.attach(kneeRearRight,  4,   10, 0,  0);
+ // BOT.attach(ankleRearRight,  2,   0, 0,  0);
+
+  //  v3
+  // h.F.R. pin 39 = SV18
+  // k.F.R. pin 38 = SV17
+  // a.F.R. pin 37 = SV16
+  BOT.attach(hipFrontRight,   39,  45, 1,  0);
+  BOT.attach(kneeFrontRight,  38,  10, 1,  0);
+  BOT.attach(ankleFrontRight, 37,   0, 1,  0);
+
+  // h.R.R. pin 24 = SV3
+  // k.R.R. pin 25 = SV4
+  // a.R.R. pin 26 = SV5
+  BOT.attach(hipRearRight,   24,   45, 0,  0);
+  BOT.attach(kneeRearRight,  25,   10, 1,  0);
+  BOT.attach(ankleRearRight, 26,    0, 1,  0);
+
+  // h.F.L. pin 48 = SV27
+  // k.F.L. pin 47 = SV26
+  // a.F.L. pin 46 = SV25
+  BOT.attach(hipFrontLeft,   48,  45, 0,  0);
+  BOT.attach(kneeFrontLeft,  47,  10, 0,  0);
+  BOT.attach(ankleFrontLeft, 46,   0, 0,  0);
+
+  // h.R.L. pin 33 =  SV12
+  // k.R.L. pin 32 =  SV11
+  // a.R.L. pin 31 =  SV10
+  BOT.attach(hipRearLeft,    33,  45, 1,  0);
+  BOT.attach(kneeRearLeft,   32,  10, 0,  0);
+  BOT.attach(ankleRearLeft,  31,   0, 0,  0);
   // Perform the standup sequence
   standup();
 
